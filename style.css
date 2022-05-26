@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.banner {
+    margin: auto;
+}
+
+.container {
+    display: grid;
+    grid-template-rows: 1fr 6fr 1fr;
+    background-color: cornflowerblue;
+
+}
+
+.players {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: coral;
+    border: 1px solid black;
+}
+
+.players div {
+    border: 1px solid black;
+}
+
+.game-console {
+    display: grid;
+    grid-template-columns: 2fr 5fr 2fr;
+}
+
+.stats-p1
+.stats-p2 {
+    border: 1px solid black;
+}
+
+.gamegrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    row-gap: 50px;
+    
+}
+
+.gamegrid div {
+    display: flex;
+    margin: auto;
+    
+    height: 100px;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 5rem;
+}
