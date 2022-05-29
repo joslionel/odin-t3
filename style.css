@@ -1,3 +1,7 @@
+:root {
+    --black: rgba(0,0,0,0.8)
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -30,6 +34,8 @@
 
 .players div {
     border: 1px solid black;
+    align-self: center;
+    justify-self: center;
 }
 
 .game-console {
@@ -40,6 +46,7 @@
 .stats-p1
 .stats-p2 {
     border: 1px solid black;
+    font-size: 4rem;
 }
 
 .gamegrid {
@@ -61,3 +68,77 @@
 
     font-size: 5rem;
 }
+
+.gamecell {
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-parent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: var(--black);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+    /* visibility: hidden;
+    opacity: 0;
+    transition: all 0.35s ease-in; */
+}
+
+.modal-show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-hide {
+    display: none;
+    visibility: hidden;
+    
+}
+
+
+#modal-start {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    position: absolute;
+}
+
+#modal-winner {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    position: absolute;
+
+}
+
+.modal-text {
+    margin: 5px;
+    font-size: 3rem;
+    justify-content: center;
+    background-color: blanchedalmond;
+    color: black;
+
+}
+
+.blinking {
+    animation:blinkingText 1.2s infinite;
+    
+
+}
+    
+@keyframes blinkingText{
+        0%{     opacity: 1;}
+        49%{    opacity: 1;}
+        60%{    opacity: 0;}
+        99%{    opacity: 0;}
+        100%{   opacity: 1;}
+    }

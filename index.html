@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
+    <script src="app.js" defer></script>
     <title>Tic Tac Toe by Jos - Odin Project</title>
 </head>
 <body>
@@ -25,42 +25,54 @@
                     Score Noughts
                 </div>
                 <div class="gamegrid">
-                    <div class="grid1">
+                    <div data-id="grid1" class="gamecell">
                         X
                     </div>
-                    <div class="grid2">
+                    <div data-id="grid2" class="gamecell">
                         O
                     </div>
-                    <div class="grid3">
+                    <div data-id="grid3" class="gamecell">
                         X
                     </div>
-                    <div class="grid4">
+                    <div data-id="grid4" class="gamecell">
                         O
                     </div>
-                    <div class="grid5">
+                    <div data-id="grid5" class="gamecell">
                         X
                     </div>
-                    <div class="grid6">
+                    <div data-id="grid6" class="gamecell">
                         O
                     </div>
-                    <div class="grid7">
+                    <div data-id="grid7" class="gamecell">
                         X
                     </div>
-                    <div class="grid8">
+                    <div data-id="grid8" class="gamecell">
                         O
                     </div>
-                    <div class="grid9">
+                    <div data-id="grid9" class="gamecell">
                         X
                     </div>
                 </div>
                 <div class="stats-p2">
                     Score Crosses
                 </div>
-                <div class="footer">
-                    Game by Jos - &copy; Angry Joe's
-                </div>
+            </div>
+            <div class="footer">
+                Game by Jos - &copy; Angry Joe's
             </div>
         </div>
+
+        <div class="modal-parent">
+            <div id="modal-start" class="modal-show">
+                <div class="modal-text">Prepare to play</div>
+                <button id="start-game">Start The Game</button>
+            </div>
+            <div id="modal-winner" class="modal-hide">
+                <div id="modal-winner-text">The winner is...</div>
+                <button id="replay-game">Replay</button>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
