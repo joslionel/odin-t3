@@ -1,4 +1,5 @@
-let turnX;
+const gameBoard = (() => {
+    let turnX;
 let gameState = [, , , , , , , , ]
 let gameStart = false;
 let gameOver = false;
@@ -13,6 +14,9 @@ const modalWinner = document.getElementById('modal-winner');
 const startButton = document.getElementById('start-game');
 const replayButton = document.getElementById('replay-game');
 const modalWinnertxt = document.getElementById('modal-winner-text')
+const choosePlayerText = document.querySelector('.choose-player');
+const statsP1 = document.querySelector('.stats-p1');
+const statsP2 = document.querySelector('.stats-p2');
 
 const playNoughts = document.getElementById('play1');
 const playCrosses = document.getElementById('play2');
@@ -28,6 +32,12 @@ playNoughts.addEventListener('click', setPlayer);
 
 cells.forEach(cell => {cell.addEventListener('click', clickedCell)});
 
+return {modalParent, modalStart, modalWinner, modalWinnertxt, 
+        choosePlayerText, playCrosses, playNoughts, gameStart,
+        gameOver, turn, turnX, cells, statsP1, statsP2, player,
+        p1Score, p2Score}
+})();
+
 const Player = (name, id) => {
     const getName = () => name;
     const getId = () => id;
@@ -37,24 +47,26 @@ const Player = (name, id) => {
 
 function startTheGame() {
         gameStart = true;
-        modalParent.classList.add('modal-hide')
-        playNoughts.classList.add('blinking')
-        playCrosses.classList.add('blinking')
+        gameBoard.modalParent.classList.add('modal-hide')
+        gameBoard.playNoughts.classList.add('blinking')
+        gameBoard.playCrosses.classList.add('blinking')
+        gameBoard.turn++
 }
 
 function resetGame() {
-    console.log('reset')
-    gameOver = false;
     
-    gameState = [, , , , , , , , ];
-    turn++
-    modalParent.classList.add('modal-hide');
+    gameBoard.gameOver = false;
+    
+    gameBoard.gameState = [, , , , , , , , ];
+    
+    gameBoard.modalParent.classList.add('modal-hide');
     startTheGame()
 }
 
 function setPlayer(e) {
-    playNoughts.classList.remove('blinking')
-    playCrosses.classList.remove('blinking')
+    gameBoard.playNoughts.classList.remove('blinking')
+    gameBoard.playCrosses.classList.remove('blinking')
+    gameBoard.choosePlayerText.innerHTML = `-- Round ${gameBoard.turn} --`
     if (e.target.id == 'play1') {
         player = Player('player 1', 'O');
         turnX = false
@@ -64,8 +76,8 @@ function setPlayer(e) {
         turnX = true
     }
 
-    cells.forEach(cell => {cell.innerHTML = ''})
-    gameState = [, , , , , , , , ]
+    gameBoard.cells.forEach(cell => {cell.innerHTML = ''})
+    gameBoard.gameState = [, , , , , , , , ]
 
     return player
 }
@@ -94,18 +106,20 @@ function clickedCell(e) {
     if (turnX) {
         symbol = 'X'
     }
-    cell = document.querySelector(`[data-id=${e.target.dataset.id}]`);
+    let cell = document.querySelector(`[data-id=${e.target.dataset.id}]`);
 
     if (cell.innerText == '') {
         addSymbol(cell, symbol)
     if (checkWinner(symbol)) {
-        modalWinnertxt.innerHTML = `<div id="modal-text">The winner is... ${symbol}'s!</div>`
-        modalParent.classList.remove('modal-hide');
-        modalStart.className = 'modal-hide';
-        modalWinner.className = 'modal-show modal-text';
-        gameOver = true
-        if (symbol == 'x') {
-            p2Score++} else {p1Score++}
+        gameBoard.modalWinnertxt.innerHTML = `<div id="modal-text">The winner is... ${symbol}'s!</div>`
+        gameBoard.modalParent.classList.remove('modal-hide');
+        gameBoard.modalStart.className = 'modal-hide';
+        gameBoard.modalWinner.className = 'modal-show modal-text';
+        gameBoard.gameOver = true
+        if (symbol == 'X') {
+            gameBoard.p2Score++} else {gameBoard.p1Score++}
+        gameBoard.statsP1.innerHTML = `Noughts: ${gameBoard.p1Score}`;
+        gameBoard.statsP2.innerHTML = `Crosses: ${gameBoard.p2Score}`;
         }
         
     }
@@ -120,7 +134,7 @@ function clickedCell(e) {
 function addSymbol (cell, symbol) {
     
     let index = cell.dataset.id[4] - 1
-    gameState[index] = symbol
+    gameBoard.gameState[index] = symbol
     cell.innerHTML = symbol;
     
 }
@@ -137,7 +151,7 @@ function checkWinner(symbol) {
 
     return winningCombinations.some((combination) => {
         return combination.every((i) => {
-            return cells[i].innerText == symbol
+            return gameBoard.cells[i].innerText == symbol
         })
     })
 
