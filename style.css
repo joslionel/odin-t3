@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Kdam+Thmor+Pro&display=swap');
+
+
 :root {
     --black: rgba(0,0,0,0.8)
 }
@@ -5,7 +8,12 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Kdam Thmor Pro', Roboto, Oxygen, sans-serif;
+}
+
+a {
+    color: #0D1321;
+    margin: 0px 5px;
 }
 
 .main {
@@ -16,31 +24,52 @@
 
 .banner {
     margin: auto;
+    font-size: 2rem;
 }
 
 .container {
     display: grid;
     grid-template-rows: 1fr 6fr 1fr;
-    background-color: cornflowerblue;
+    background-color: #c2c2c2;
 
 }
 
 .players {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    background-color: coral;
+    color: ghostwhite;
+    font-size: 1.5rem;
+    background-color: #da242e;
     border: 1px solid black;
 }
 
+.choose-player {
+    font-weight: bolder;
+    color: white;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
 .players div {
-    border: 1px solid black;
+    
     align-self: center;
     justify-self: center;
+}
+
+.players button {
+    height: 3rem;
+    border-radius: .1rem;
+    padding: 1em;
+    background-color: #00ff40;
+    box-shadow: 3px 3px 0px 2px rgba(0,0,0,1);
 }
 
 .game-console {
     display: grid;
     grid-template-columns: 2fr 5fr 2fr;
+    justify-items: center;
+    align-items: flex-start;
 }
 
 .stats-p1
@@ -53,24 +82,33 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    row-gap: 50px;
+    gap: 0;
+    column-gap: 0;
+    align-items: center;
+    margin: 4rem;
+    width: 35vw;
+    
     
 }
 
-.gamegrid div {
-    display: flex;
-    margin: auto;
+.gamecell:nth-child(3n+1) {
+    border-left: none;
+}
+.gamecell:nth-child(1n+7) {
+    border-bottom: none;
     
-    height: 100px;
-    width: 100px;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 5rem;
 }
 
 .gamecell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    
+    font-size: 5rem;
     cursor: pointer;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
 .footer {
@@ -111,27 +149,48 @@
     display: grid;
     grid-template-rows: 1fr 1fr;
     position: absolute;
+    background: rgb(2,0,36);
+    background: linear-gradient(to right, rgba(218,36,46,1) 0%, rgba(0,255,64,0.94) 48%, rgba(194,194,194,0.9) 81%, rgba(194,194,194,0.88) 100%);
+    border: 2px solid black;
+    border-radius: 2rem;
+    padding: 1rem;
 }
 
 #modal-winner {
     display: grid;
     grid-template-rows: 1fr 1fr;
     position: absolute;
-
+    background-color: #0D1321;;
+    border: 2px solid black;
+    border-radius: 2rem;
+    padding: 1rem
 }
 
 .modal-text {
     margin: 5px;
     font-size: 3rem;
+    font-weight: bolder;
     justify-content: center;
-    background-color: blanchedalmond;
     color: black;
+    -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+#start-game,
+#replay-game {
+    
+    justify-self: center;
+    
+    border-radius: .1rem;
+    padding: 1em;
+    
+    box-shadow: 3px 3px 0px 2px rgba(0,0,0,1);
 
 }
 
 .blinking {
     animation:blinkingText 1.2s infinite;
-    
 
 }
     

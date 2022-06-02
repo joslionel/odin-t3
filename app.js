@@ -1,56 +1,63 @@
 const gameBoard = (() => {
+    
     let turnX;
-let gameState = [, , , , , , , , ]
-let gameStart = false;
-let gameOver = false;
-let turn = 0    
-let player = 'o';
-let p1Score = 0;
-let p2Score = 0;
+    let gameState = [, , , , , , , , ]
+    let gameStart = false;
+    let gameOver = false;
+    let turn = 0;
+    let round = 0;    
+    let player = 'o';
+    let p1Score = 0;
+    let p2Score = 0;
 
-const modalParent = document.querySelector('.modal-parent');
-const modalStart = document.getElementById('modal-start');
-const modalWinner = document.getElementById('modal-winner');
-const startButton = document.getElementById('start-game');
-const replayButton = document.getElementById('replay-game');
-const modalWinnertxt = document.getElementById('modal-winner-text')
-const choosePlayerText = document.querySelector('.choose-player');
-const statsP1 = document.querySelector('.stats-p1');
-const statsP2 = document.querySelector('.stats-p2');
+    const modalParent = document.querySelector('.modal-parent');
+    const modalStart = document.getElementById('modal-start');
+    const modalWinner = document.getElementById('modal-winner');
+    const startButton = document.getElementById('start-game');
+    const replayButton = document.getElementById('replay-game');
+    const modalWinnertxt = document.getElementById('modal-winner-text')
+    const choosePlayerText = document.querySelector('.choose-player');
+    const statsP1 = document.querySelector('.stats-p1');
+    const statsP2 = document.querySelector('.stats-p2');
+    const playNoughts = document.getElementById('play1');
+    const playCrosses = document.getElementById('play2');
+    const cells = document.querySelectorAll('[class="gamecell"]')
 
-const playNoughts = document.getElementById('play1');
-const playCrosses = document.getElementById('play2');
-
-const cells = document.querySelectorAll('[class="gamecell"]')
-
-startButton.addEventListener('click', startTheGame);
-replayButton.addEventListener('click', resetGame);
+    startButton.addEventListener('click', startTheGame);
+    replayButton.addEventListener('click', resetGame);
+    playCrosses.addEventListener('click', setPlayer);
+    playNoughts.addEventListener('click', setPlayer);
 
 
-playCrosses.addEventListener('click', setPlayer);
-playNoughts.addEventListener('click', setPlayer);
+    cells.forEach(cell => {cell.addEventListener('click', clickedCell)});
 
-cells.forEach(cell => {cell.addEventListener('click', clickedCell)});
-
-return {modalParent, modalStart, modalWinner, modalWinnertxt, 
-        choosePlayerText, playCrosses, playNoughts, gameStart,
-        gameOver, turn, turnX, cells, statsP1, statsP2, player,
-        p1Score, p2Score}
+    return {modalParent, modalStart, modalWinner, modalWinnertxt, 
+            choosePlayerText, playCrosses, playNoughts, gameStart,
+            gameOver, round, turn, turnX, cells, statsP1, statsP2, player,
+            p1Score, p2Score}
 })();
 
+
+
 const Player = (name, id) => {
+    let score = 0;
     const getName = () => name;
     const getId = () => id;
+    const getScore = () => score;
+    const winGame = () => {
+        score++
+        return score}
 
-    return {getName, getId};
+    return {getName, getId, getScore, winGame};
 }
+
 
 function startTheGame() {
         gameStart = true;
         gameBoard.modalParent.classList.add('modal-hide')
         gameBoard.playNoughts.classList.add('blinking')
         gameBoard.playCrosses.classList.add('blinking')
-        gameBoard.turn++
+        gameBoard.round++
 }
 
 function resetGame() {
@@ -62,6 +69,21 @@ function resetGame() {
     gameBoard.modalParent.classList.add('modal-hide');
     startTheGame()
 }
+
+const gamePlay = (() => {
+    // the game logic should be organised here.
+    // startTheGame() should probably instantiate this. then the logic
+    // should go: startGame, choosePlayer (bring in a player object)
+    // when a (cell is clicked) a (symbol should be added) according to
+    // the {Player}.
+    // each time a cell is clicked & symbol added, the board should be
+    // checked for a winning combination. when a winner is found,
+    // the winning {player} should be identified and its score incremented
+
+})()
+
+
+
 
 function setPlayer(e) {
     gameBoard.playNoughts.classList.remove('blinking')
@@ -82,22 +104,23 @@ function setPlayer(e) {
     return player
 }
 
-function startGame(e) {
-    const isVisible = "is-visible";
+// i don't think this is for anything!
+// function startGame(e) {
+//     const isVisible = "is-visible";
 
     
-    const modalId = this.dataset.open;
-    const modal = document.getElementById(modalId)
+//     const modalId = this.dataset.open;
+//     const modal = document.getElementById(modalId)
     
-    modal.classList.add(isVisible);
+//     modal.classList.add(isVisible);
     
-    modal.addEventListener('click', function(e) {
-        if (e.target == modal)
-        modal.classList.remove(isVisible)
-    });
+//     modal.addEventListener('click', function(e) {
+//         if (e.target == modal)
+//         modal.classList.remove(isVisible)
+//     });
 
     
-}
+// }
 
 
 
@@ -110,6 +133,8 @@ function clickedCell(e) {
 
     if (cell.innerText == '') {
         addSymbol(cell, symbol)
+    
+    
     if (checkWinner(symbol)) {
         gameBoard.modalWinnertxt.innerHTML = `<div id="modal-text">The winner is... ${symbol}'s!</div>`
         gameBoard.modalParent.classList.remove('modal-hide');
