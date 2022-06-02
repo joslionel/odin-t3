@@ -70,25 +70,14 @@ function resetGame() {
     startTheGame()
 }
 
-const gamePlay = (() => {
-    // the game logic should be organised here.
-    // startTheGame() should probably instantiate this. then the logic
-    // should go: startGame, choosePlayer (bring in a player object)
-    // when a (cell is clicked) a (symbol should be added) according to
-    // the {Player}.
-    // each time a cell is clicked & symbol added, the board should be
-    // checked for a winning combination. when a winner is found,
-    // the winning {player} should be identified and its score incremented
-
-})()
-
 
 
 
 function setPlayer(e) {
+    gameBoard.turn = 0;
     gameBoard.playNoughts.classList.remove('blinking')
     gameBoard.playCrosses.classList.remove('blinking')
-    gameBoard.choosePlayerText.innerHTML = `-- Round ${gameBoard.turn} --`
+    gameBoard.choosePlayerText.innerHTML = `-- Round ${gameBoard.round} --`
     if (e.target.id == 'play1') {
         player = Player('player 1', 'O');
         turnX = false
@@ -103,24 +92,6 @@ function setPlayer(e) {
 
     return player
 }
-
-// i don't think this is for anything!
-// function startGame(e) {
-//     const isVisible = "is-visible";
-
-    
-//     const modalId = this.dataset.open;
-//     const modal = document.getElementById(modalId)
-    
-//     modal.classList.add(isVisible);
-    
-//     modal.addEventListener('click', function(e) {
-//         if (e.target == modal)
-//         modal.classList.remove(isVisible)
-//     });
-
-    
-// }
 
 
 
@@ -149,7 +120,18 @@ function clickedCell(e) {
         
     }
 
-    turnX = !turnX
+    turnX = !turnX;
+    gameBoard.turn++;
+
+    if (gameBoard.turn == 9) {
+        gameBoard.modalWinnertxt.innerHTML = `<div id="modal-text">Looks like it's a draw!</div>`
+        gameBoard.modalParent.classList.remove('modal-hide');
+        gameBoard.modalStart.className = 'modal-hide';
+        gameBoard.modalWinner.className = 'modal-show modal-text';
+        gameBoard.gameOver = true
+    }
+
+
     }
     
 
