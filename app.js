@@ -104,6 +104,9 @@ function clickedCell(e) {
 
     if (cell.innerText == '') {
         addSymbol(cell, symbol)
+
+    turnX = !turnX;
+    gameBoard.turn++;
     
     
     if (checkWinner(symbol)) {
@@ -116,20 +119,19 @@ function clickedCell(e) {
             gameBoard.p2Score++} else {gameBoard.p1Score++}
         gameBoard.statsP1.innerHTML = `Noughts: ${gameBoard.p1Score}`;
         gameBoard.statsP2.innerHTML = `Crosses: ${gameBoard.p2Score}`;
+        } else if (gameBoard.turn == 9) {
+            gameBoard.modalWinnertxt.innerHTML = `<div id="modal-text">Looks like it's a draw!</div>`
+            gameBoard.modalParent.classList.remove('modal-hide');
+            gameBoard.modalStart.className = 'modal-hide';
+            gameBoard.modalWinner.className = 'modal-show modal-text';
+            gameBoard.gameOver = true
         }
         
     }
 
-    turnX = !turnX;
-    gameBoard.turn++;
+    
 
-    if (gameBoard.turn == 9) {
-        gameBoard.modalWinnertxt.innerHTML = `<div id="modal-text">Looks like it's a draw!</div>`
-        gameBoard.modalParent.classList.remove('modal-hide');
-        gameBoard.modalStart.className = 'modal-hide';
-        gameBoard.modalWinner.className = 'modal-show modal-text';
-        gameBoard.gameOver = true
-    }
+    
 
 
     }
